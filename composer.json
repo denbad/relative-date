@@ -21,9 +21,9 @@
         "phpunit/phpunit": "^8.1"
     },
     "autoload": {
-        "psr-4": {"Denbad\\RelativeDate\\": "src/"}
+        "psr-4": {"Denbad\\RelativeDate\\": "src"}
     },
     "autoload-dev": {
-        "psr-4": {"Denbad\\RelativeDate\\Test\\": "tests/"}
+        "psr-4": {"Denbad\\RelativeDate\\Test\\": "tests"}
     }
 }
