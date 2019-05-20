@@ -24,9 +24,9 @@
         "denbad/relative-date-symfony-bridge": "Bridge for using denbad/relative-date in Symfony projects",
     },
     "autoload": {
-        "psr-4": {"Denbad\\RelativeDate\\": "src/"}
+        "psr-4": {"Denbad\\RelativeDate\\": "src"}
     },
     "autoload-dev": {
-        "psr-4": {"Denbad\\RelativeDate\\Test\\": "tests/"}
+        "psr-4": {"Denbad\\RelativeDate\\Tests\\": "tests"}
     }
 }
