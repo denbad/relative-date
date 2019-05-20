@@ -21,7 +21,7 @@
         "phpunit/phpunit": "^8.1"
     },
     "suggest": {
-        "denbad/relative-date-symfony-bridge": "Bridge for using denbad/relative-date in Symfony projects",
+        "denbad/relative-date-symfony-bridge": "Bridge for using denbad/relative-date in Symfony projects"
     },
     "autoload": {
         "psr-4": {"Denbad\\RelativeDate\\": "src"}
