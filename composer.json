@@ -1,6 +1,6 @@
 {
     "name": "denbad/relative-date",
-    "description": "Converts date to pointer-words analog",
+    "description": "Converts date to a pointer-word analog",
     "type": "library",
     "keywords": ["date", "format", "relative", "pointer-words"],
     "homepage": "https://github.com/denbad/relative-date",
