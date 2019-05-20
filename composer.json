@@ -1,0 +1,29 @@
+{
+    "name": "denbad/relative-date",
+    "description": "Converts date to pointer-words analog",
+    "type": "library",
+    "keywords": ["date", "format", "relative", "pointer-words"],
+    "homepage": "https://github.com/denbad/relative-date",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Denis Badulin"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/denbad/relative-date/issues",
+        "source": "https://github.com/denbad/relative-date"
+    },
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {"Denbad\\RelativeDate\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Denbad\\RelativeDate\\Test\\": "tests/"}
+    }
+}
