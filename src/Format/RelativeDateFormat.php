@@ -8,14 +8,14 @@ final class RelativeDateFormat implements Format
 {
     private $fallbackFormat;
 
-    public function __construct(string $fallbackFormat = 'd F Y')
+    public function __construct(string $fallbackFormat = Format::FALLBACK_FORMAT)
     {
         $this->fallbackFormat = $fallbackFormat;
     }
 
     public function __toString(): string
     {
-        return 'relative-date';
+        return Format::FORMAT_RELATIVE_DATE;
     }
 
     public function __invoke(string $date): string

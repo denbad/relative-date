@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Denbad\RelativeDate\Formatter;
 
+use Denbad\RelativeDate\Format\Format;
 use Denbad\RelativeDate\Middleware\Middleware;
 
 final class CompositeFormatter implements Formatter
@@ -12,7 +13,7 @@ final class CompositeFormatter implements Formatter
     private $middlewares = [];
     private $defaultFormat;
 
-    public function __construct(iterable $middlewares = [], string $defaultFormat = 'relative-date')
+    public function __construct(iterable $middlewares = [], string $defaultFormat = Format::FORMAT_RELATIVE_DATETIME)
     {
         foreach ($middlewares as $middleware) {
             $this->middlewares[] = $middleware;
