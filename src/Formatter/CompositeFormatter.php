@@ -10,17 +10,24 @@ final class CompositeFormatter implements Formatter
 {
     /** @var Middleware[] */
     private $middlewares = [];
+    private $defaultFormat;
 
-    public function __construct(iterable $middlewares = [])
+    public function __construct(iterable $middlewares = [], string $defaultFormat = 'relative-date')
     {
         foreach ($middlewares as $middleware) {
             $this->middlewares[] = $middleware;
         }
+
+        $this->defaultFormat = $defaultFormat;
     }
 
-    public function format(\DateTimeImmutable $date, string $format): string
+    public function format(\DateTimeImmutable $date, string $format = null): string
     {
-        return call_user_func($this->callableForNextMiddleware(0), (clone $date)->format('c'), $format);
+        return call_user_func(
+            $this->callableForNextMiddleware(0),
+            (clone $date)->format('c'),
+            $format ?? $this->defaultFormat
+        );
     }
 
     private function callableForNextMiddleware(int $index): callable

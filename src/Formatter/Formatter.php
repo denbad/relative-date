@@ -6,5 +6,5 @@ namespace Denbad\RelativeDate\Formatter;
 
 interface Formatter
 {
-    public function format(\DateTimeImmutable $date, string $format): string;
+    public function format(\DateTimeImmutable $date, string $format = null): string;
 }

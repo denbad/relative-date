@@ -6,6 +6,13 @@ namespace Denbad\RelativeDate\Format;
 
 final class RelativeDateTimeFormat implements Format
 {
+    private $fallbackFormat;
+
+    public function __construct(string $fallbackFormat = 'd F Y')
+    {
+        $this->fallbackFormat = $fallbackFormat;
+    }
+
     public function __toString(): string
     {
         return 'relative-datetime';
@@ -15,10 +22,8 @@ final class RelativeDateTimeFormat implements Format
     {
         $date = new \DateTimeImmutable($date);
 
-        $default = sprintf('%s %s %s', $date->format('d'), $date->format('F'), $date->format('Y'));
-
         if ($date > new \DateTimeImmutable('today 23:59:59')) {
-            return $default;
+            return $date->format($this->fallbackFormat);
         }
         if ($date >= new \DateTimeImmutable('today midnight')) {
             return sprintf('%s %s', 'today_at', $date->format('H:i'));
@@ -33,6 +38,6 @@ final class RelativeDateTimeFormat implements Format
             return sprintf('%s %s', '3_days_ago_at', $date->format('H:i'));
         }
 
-        return $default;
+        return $date->format($this->fallbackFormat);
     }
 }
