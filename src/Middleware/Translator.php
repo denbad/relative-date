@@ -6,5 +6,5 @@ namespace Denbad\RelativeDate\Middleware;
 
 interface Translator
 {
-    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string;
+    public function trans(string $id, array $parameters = [], string $locale = null): string;
 }
