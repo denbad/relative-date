@@ -4,30 +4,32 @@ declare(strict_types=1);
 
 namespace Denbad\RelativeDate\Formatter;
 
-use Denbad\RelativeDate\Format\Format;
+use Denbad\RelativeDate\Strategy\Strategy;
 use Denbad\RelativeDate\Middleware\Middleware;
 
 final class CompositeFormatter implements Formatter
 {
     /** @var Middleware[] */
     private $middlewares = [];
-    private $defaultFormat;
+    private $defaultStrategy;
 
-    public function __construct(iterable $middlewares = [], string $defaultFormat = Format::FORMAT_RELATIVE_DATETIME)
-    {
+    public function __construct(
+        iterable $middlewares = [],
+        string $defaultStrategy = Strategy::STRATEGY_RELATIVE_DATETIME
+    ) {
         foreach ($middlewares as $middleware) {
             $this->middlewares[] = $middleware;
         }
 
-        $this->defaultFormat = $defaultFormat;
+        $this->defaultStrategy = $defaultStrategy;
     }
 
-    public function format(\DateTimeImmutable $date, string $format = null): string
+    public function format(\DateTimeImmutable $date, string $strategy = null): string
     {
         return call_user_func(
             $this->callableForNextMiddleware(0),
             (clone $date)->format('c'),
-            $format ?? $this->defaultFormat
+            $strategy ?? $this->defaultStrategy
         );
     }
 
@@ -41,8 +43,8 @@ final class CompositeFormatter implements Formatter
 
         $middleware = $this->middlewares[$index];
 
-        return function (string $date, string $format) use ($middleware, $index): string {
-            return $middleware->format($date, $format, $this->callableForNextMiddleware($index + 1));
+        return function (string $date, string $strategy) use ($middleware, $index): string {
+            return $middleware->format($date, $strategy, $this->callableForNextMiddleware($index + 1));
         };
     }
 }

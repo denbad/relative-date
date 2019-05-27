@@ -8,15 +8,15 @@ final class CachesMiddleware implements Middleware
 {
     private $cache = [];
 
-    public function format(string $date, string $format, callable $next): string
+    public function format(string $date, string $strategy, callable $next): string
     {
-        $key = $format . ':' . $date;
+        $key = $strategy . ':' . $date;
 
         if (array_key_exists($key, $this->cache)) {
             return $this->cache[$key];
         }
 
-        $this->cache[$key] = $next($date, $format);
+        $this->cache[$key] = $next($date, $strategy);
 
         return $this->cache[$key];
     }

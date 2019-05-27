@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Denbad\RelativeDate\Middleware;
 
-use Denbad\RelativeDate\Format\Format;
+use Denbad\RelativeDate\Strategy\Strategy;
 
 final class ConvertsToRelativeMiddleware implements Middleware
 {
-    /** @var Format[] */
-    private $formats = [];
+    /** @var Strategy[] */
+    private $strategies = [];
 
-    public function __construct(iterable $formats = [])
+    public function __construct(iterable $strategies = [])
     {
-        foreach ($formats as $format) {
-            $this->formats[(string) $format] = $format;
+        foreach ($strategies as $strategy) {
+            $this->strategies[(string) $strategy] = $strategy;
         }
     }
 
-    public function format(string $date, string $format, callable $next): string
+    public function format(string $date, string $strategy, callable $next): string
     {
         $result = '';
 
-        if (array_key_exists($format, $this->formats)) {
-            $result = call_user_func($this->formats[$format], $date);
+        if (array_key_exists($strategy, $this->strategies)) {
+            $result = call_user_func($this->strategies[$strategy], $date);
         }
 
-        return $next($result, $format);
+        return $next($result, $strategy);
     }
 }

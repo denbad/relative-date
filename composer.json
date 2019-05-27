@@ -18,7 +18,9 @@
         "php": "^7.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.1"
+        "symfony/var-dumper": "^3.4",
+        "phpunit/phpunit": "^8.1",
+        "phpstan/phpstan": "^0.11.5"
     },
     "suggest": {
         "denbad/relative-date-symfony-bridge": "Bridge for using denbad/relative-date in Symfony projects"

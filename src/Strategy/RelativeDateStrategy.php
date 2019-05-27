@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Denbad\RelativeDate\Format;
+namespace Denbad\RelativeDate\Strategy;
 
-final class RelativeDateFormat implements Format
+final class RelativeDateStrategy implements Strategy
 {
     private $fallbackFormat;
 
-    public function __construct(string $fallbackFormat = Format::FALLBACK_FORMAT)
+    public function __construct(string $fallbackFormat = Strategy::FALLBACK_FORMAT)
     {
         $this->fallbackFormat = $fallbackFormat;
     }
 
     public function __toString(): string
     {
-        return Format::FORMAT_RELATIVE_DATE;
+        return Strategy::STRATEGY_RELATIVE_DATE;
     }
 
     public function __invoke(string $date): string

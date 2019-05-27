@@ -13,7 +13,7 @@ final class TranslatesMiddleware implements Middleware
         $this->translator = $translator;
     }
 
-    public function format(string $date, string $format, callable $next): string
+    public function format(string $date, string $strategy, callable $next): string
     {
         $glue = ' ';
         $parts = explode($glue, $date);
@@ -22,6 +22,6 @@ final class TranslatesMiddleware implements Middleware
             return $this->translator->trans($token);
         }, $parts);
 
-        return $next(implode($glue, $parts), $format);
+        return $next(implode($glue, $parts), $strategy);
     }
 }
