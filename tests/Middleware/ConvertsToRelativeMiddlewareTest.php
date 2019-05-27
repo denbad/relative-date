@@ -53,7 +53,6 @@ final class ConvertsToRelativeMiddlewareTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals('result-result', $middleware->format($date, 'strategy', $next));
         $this->assertEquals('', $middleware->format($date, '404', $next404));
-
     }
 
     private function getStrategy(): MockObject
