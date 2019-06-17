@@ -12,17 +12,17 @@ final class CapitalizesMiddlewareTest extends \PHPUnit\Framework\TestCase
 
     public function testFormat(): void
     {
-        $nextA = $this->getNextCallable();
-        $nextA
+        $next = $this->getNextCallable();
+        $next
             ->expects($this->once())
             ->method('__invoke')
             ->with('Result', 'strategy')
             ->willReturn('Result')
         ;
 
-        /** @var callable $nextA */
+        /** @var callable $next */
 
         $middleware = new CapitalizesMiddleware();
-        $this->assertEquals('Result', $middleware->format('result', 'strategy', $nextA));
+        $this->assertEquals('Result', $middleware->format('result', 'strategy', $next));
     }
 }

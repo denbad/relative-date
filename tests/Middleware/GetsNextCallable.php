@@ -13,9 +13,3 @@ trait GetsNextCallable
         return $this->getMockForAbstractClass(NextCallable::class);
     }
 }
-
-interface NextCallable
-{
-    public function __invoke(string $result, string $strategy): string;
-}
-

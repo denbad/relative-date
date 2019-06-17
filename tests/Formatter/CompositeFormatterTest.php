@@ -21,45 +21,39 @@ final class CompositeFormatterTest extends \PHPUnit\Framework\TestCase
         $dateString = $date->format('c');
         $strategy = Strategy::STRATEGY_RELATIVE_DATETIME;
 
+        // 3 Middleware
         $nextToResult = static function (string $carry): string {
             return sprintf('%s -> C', $carry);
         };
-        $middlewareC = $this->getMiddleware();
-        $middlewareC
-            ->expects($this->once())
-            ->method('format')
-            ->with(sprintf('%s -> A -> B', $dateString), $strategy, $nextToResult)
-            ->willReturnCallback($nextToResult)
-        ;
+        $middlewareC = $this->getMiddleware(sprintf('%s -> A -> B', $dateString), $strategy, $nextToResult);
 
+        // 2 Middleware
         $nextToC = static function (string $carry, string $strategy) use ($middlewareC, $nextToResult): string {
             return $middlewareC->format(sprintf('%s -> B', $carry), $strategy, $nextToResult);
         };
-        $middlewareB = $this->getMiddleware();
-        $middlewareB
-            ->expects($this->once())
-            ->method('format')
-            ->with(sprintf('%s -> A', $dateString), $strategy, $nextToC)
-            ->willReturnCallback($nextToC)
-        ;
+        $middlewareB = $this->getMiddleware(sprintf('%s -> A', $dateString), $strategy, $nextToC);
 
+        // 1 Middleware
         $nextToB = static function (string $carry, string $strategy) use ($middlewareB, $nextToC): string {
             return $middlewareB->format(sprintf('%s -> A', $carry), $strategy, $nextToC);
         };
-        $middlewareA = $this->getMiddleware();
-        $middlewareA
-            ->expects($this->once())
-            ->method('format')
-            ->with($dateString, $strategy, $nextToB)
-            ->willReturnCallback($nextToB)
-        ;
+        $middlewareA = $this->getMiddleware($dateString, $strategy, $nextToB);
 
         $formatter = new CompositeFormatter([$middlewareA, $middlewareB, $middlewareC]);
         $this->assertEquals(sprintf('%s -> A -> B -> C', $dateString), $formatter->format($date));
     }
 
-    private function getMiddleware(): MockObject
+    private function getMiddleware(string $date, string $strategy, callable $next): MockObject
     {
-        return $this->getMockForAbstractClass(Middleware::class);
+        $mock = $this->getMockForAbstractClass(Middleware::class);
+
+        $mock
+            ->expects($this->once())
+            ->method('format')
+            ->with($date, $strategy, $next)
+            ->willReturnCallback($next)
+        ;
+
+        return $mock;
     }
 }
